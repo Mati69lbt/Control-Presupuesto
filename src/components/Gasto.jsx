@@ -28,7 +28,7 @@ const diccIconos = {
 };
 
 const Gasto = ({ gasto, setGastoEditar, eliminarGasto }) => {
-  const { categoria, nombre, cantidad, id, fecha } = gasto;
+  const { categoria, nombre, cantidad, id,unidades, subTotal, fecha } = gasto;
 
   const leadingActions = () => (
     <LeadingActions>
@@ -62,7 +62,7 @@ const Gasto = ({ gasto, setGastoEditar, eliminarGasto }) => {
               </p>
             </div>
           </div>
-          <p className="cantidad-gasto">${cantidad}</p>
+          <p className="cantidad-gasto">${subTotal}</p>
         </div>
       </SwipeableListItem>
     </SwipeableList>

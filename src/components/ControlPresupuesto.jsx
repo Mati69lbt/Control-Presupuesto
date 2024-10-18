@@ -15,7 +15,8 @@ const ControlPresupuesto = ({
 
   useEffect(() => {
     const totalGastado = gastos.reduce(
-      (total, gasto) => gasto.cantidad + total,
+      // (total, gasto) => gasto.cantidad + total,
+      (total, gasto) => gasto.subTotal + total,
       0
     );
     const totalDisponible = presupuesto - totalGastado;

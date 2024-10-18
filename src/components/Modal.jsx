@@ -1,3 +1,4 @@
+//cspell: ignore  categoria
 import { useEffect, useState } from "react";
 import cerrarBTN from "../img/cerrar.svg";
 import Mensaje from "./Mensaje";
@@ -14,6 +15,7 @@ const Modal = ({
   const [nombre, setNombre] = useState("");
   const [cantidad, setCantidad] = useState("");
   const [categoria, setCategoria] = useState("");
+  const [unidades, setUnidades] = useState("");
   const [id, setId] = useState("");
   const [fecha, setFecha] = useState("");
 
@@ -22,6 +24,7 @@ const Modal = ({
       setNombre(gastoEditar.nombre);
       setCantidad(gastoEditar.cantidad);
       setCategoria(gastoEditar.categoria);
+      setUnidades(gastoEditar.unidades);
       setId(gastoEditar.id);
       setFecha(gastoEditar.fecha);
     }
@@ -34,6 +37,9 @@ const Modal = ({
       setModal(false);
     }, 1000);
   };
+
+  const subTotal = cantidad * unidades;
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if ([nombre, cantidad, categoria].includes("")) {
@@ -42,7 +48,15 @@ const Modal = ({
         setMensaje("");
       }, 3000);
     }
-    guardarGasto({ nombre, cantidad, categoria, id, fecha });
+    guardarGasto({
+      nombre,
+      cantidad,
+      categoria,
+      unidades,
+      id,
+      fecha,
+      subTotal,
+    });
   };
   return (
     <div className="modal">
@@ -67,7 +81,7 @@ const Modal = ({
           />
         </div>
         <div className="campo">
-          <label htmlFor="cantidad">Cantidad</label>
+          <label htmlFor="cantidad">Precio Unitario</label>
           <input
             type="number"
             id="cantidad"
@@ -76,6 +90,22 @@ const Modal = ({
             onChange={(e) => setCantidad(Number(e.target.value))}
           />
         </div>
+        <div className="campo">
+          <label htmlFor="unidades">Cantidad</label>
+          <input
+            type="number"
+            id="unidades"
+            placeholder="¿Cuantos vas a comprar?"
+            defaultValue="1"
+            value={unidades}
+            onChange={(e) => setUnidades(Number(e.target.value))}
+          />
+        </div>
+        <div className="campo">
+          <label htmlFor="subTotal">Sub Total</label>
+          <h3 className="subTotal">$ {subTotal}</h3>
+        </div>
+
         <div className="campo">
           <label htmlFor="categoria">Categoría</label>
           <select
