@@ -15,7 +15,7 @@ const Modal = ({
   const [nombre, setNombre] = useState("");
   const [cantidad, setCantidad] = useState("");
   const [categoria, setCategoria] = useState("");
-  const [unidades, setUnidades] = useState("");
+  const [unidades, setUnidades] = useState(1);
   const [id, setId] = useState("");
   const [fecha, setFecha] = useState("");
 
@@ -64,7 +64,6 @@ const Modal = ({
       nombre,
       cantidad,
       categoria: categoriaRandom.value,
-
       unidades,
       id,
       fecha,
@@ -109,7 +108,6 @@ const Modal = ({
             type="number"
             id="unidades"
             placeholder="¿Cuantos vas a comprar?"
-            defaultValue="1"
             value={unidades}
             onChange={(e) => setUnidades(Number(e.target.value))}
           />

@@ -1,3 +1,4 @@
+// cspell: ignore categoria
 import { useEffect, useState } from "react";
 import Filtros from "./components/Filtros";
 import Header from "./components/Header";
