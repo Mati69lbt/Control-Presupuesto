@@ -101,7 +101,7 @@ function App() {
       {isValidPresupuesto && (
         <>
           <main>
-            <Filtros filtros={filtros} setFiltros={setFiltros} />
+            {/* <Filtros filtros={filtros} setFiltros={setFiltros} /> */}
             <ListadoGastos
               gastos={gastos}
               setGastoEditar={setGastoEditar}

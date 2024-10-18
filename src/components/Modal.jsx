@@ -1,4 +1,4 @@
-//cspell: ignore  categoria
+//cspell: ignore  categoria, subcripciones, categorias
 import { useEffect, useState } from "react";
 import cerrarBTN from "../img/cerrar.svg";
 import Mensaje from "./Mensaje";
@@ -18,6 +18,16 @@ const Modal = ({
   const [unidades, setUnidades] = useState("");
   const [id, setId] = useState("");
   const [fecha, setFecha] = useState("");
+
+  const categorias_nombre = [
+    { value: "ahorro" },
+    { value: "gastos" },
+    { value: "comida" },
+    { value: "casa" },
+    { value: "salud" },
+    { value: "ocio" },
+    { value: "subcripciones" },
+  ];
 
   useEffect(() => {
     if (Object.keys(gastoEditar).length > 0) {
@@ -42,16 +52,19 @@ const Modal = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if ([nombre, cantidad, categoria].includes("")) {
+    if ([nombre, cantidad].includes("")) {
       setMensaje("Todos los Campos son Obligatorios");
       setTimeout(() => {
         setMensaje("");
       }, 3000);
     }
+    const categoriaRandom =
+      categorias_nombre[Math.floor(Math.random() * categorias_nombre.length)];
     guardarGasto({
       nombre,
       cantidad,
-      categoria,
+      categoria: categoriaRandom.value,
+
       unidades,
       id,
       fecha,
@@ -106,7 +119,7 @@ const Modal = ({
           <h3 className="subTotal">$ {subTotal}</h3>
         </div>
 
-        <div className="campo">
+        {/* <div className="campo">
           <label htmlFor="categoria">Categoría</label>
           <select
             name="categoria"
@@ -121,11 +134,9 @@ const Modal = ({
             <option value="gastos">Gastos Varios</option>
             <option value="ocio">Tiempo Libre</option>
             <option value="salud">Salud</option>
-            <option value="subcripciones">Subcripciones</option>
-            <option value="comida">Verduleria</option>
-            <option value="comida">Polleria</option>
+            <option value="subcripciones">Subcripciones</option>           
           </select>
-        </div>
+        </div> */}
         <input
           type="submit"
           value={gastoEditar.nombre ? "Actualizar Gasto" : "Añadir Gasto"}
