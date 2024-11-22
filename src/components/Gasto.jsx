@@ -1,3 +1,4 @@
+// cspell: ignore Swipeable, Subcripciones, subcripciones, categoria, descripcion
 import {
   LeadingActions,
   SwipeableList,
@@ -18,7 +19,7 @@ import IconoSalud from "../img/icono_salud.svg";
 import IconoSubcripciones from "../img/icono_suscripciones.svg";
 
 const diccIconos = {
-  ahorrro: IconoAhorro,
+  ahorro: IconoAhorro,
   casa: IconoCasa,
   comida: IconoComida,
   gastos: IconoGastos,
@@ -28,7 +29,7 @@ const diccIconos = {
 };
 
 const Gasto = ({ gasto, setGastoEditar, eliminarGasto }) => {
-  const { categoria, nombre, cantidad, id,unidades, subTotal, fecha } = gasto;
+  const { categoria, nombre, cantidad, id, unidades, subTotal, fecha } = gasto;
 
   const leadingActions = () => (
     <LeadingActions>
@@ -55,7 +56,9 @@ const Gasto = ({ gasto, setGastoEditar, eliminarGasto }) => {
             <img src={diccIconos[categoria]} />
             <div className="descripcion-gasto">
               <p className="categoria">{categoria}</p>
-              <p className="nombre-gasto">{nombre}</p>
+              <p className="nombre-gasto">
+                {nombre.charAt(0).toUpperCase() + nombre.slice(1).toLowerCase()}
+              </p>
               <p className="fecha-gasto">
                 {" "}
                 Agregado el: <span>{formatearFecha(fecha)}</span>
