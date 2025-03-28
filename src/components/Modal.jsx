@@ -139,6 +139,9 @@ const Modal = ({
           type="submit"
           value={gastoEditar.nombre ? "Actualizar Gasto" : "Añadir Gasto"}
         />
+        <br />
+        <br />
+        <button onClick={ocultarModal}>Cerrar</button>
       </form>
     </div>
   );
