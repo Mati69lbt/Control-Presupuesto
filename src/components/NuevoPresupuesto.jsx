@@ -22,7 +22,7 @@ const NuevoPresupuesto = ({
 
   const handleCheckboxChange = (valor) => {
     if (presupuesto === valor) {
-      setPresupuesto(0); // deselecciona si vuelve a hacer clic
+      setPresupuesto(0); 
     } else {
       setPresupuesto(valor);
     }
