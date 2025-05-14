@@ -57,6 +57,7 @@ const Modal = ({
       setTimeout(() => {
         setMensaje("");
       }, 3000);
+      return;
     }
     const categoriaRandom =
       categorias_nombre[Math.floor(Math.random() * categorias_nombre.length)];
@@ -69,6 +70,7 @@ const Modal = ({
       fecha,
       subTotal,
     });
+    
   };
   return (
     <div className="modal">
@@ -117,24 +119,6 @@ const Modal = ({
           <h3 className="subTotal">$ {subTotal}</h3>
         </div>
 
-        {/* <div className="campo">
-          <label htmlFor="categoria">Categoría</label>
-          <select
-            name="categoria"
-            id="categoria"
-            value={categoria}
-            onChange={(e) => setCategoria(e.target.value)}
-          >
-            <option value="">--- Seleccione Una ---</option>
-            <option value="ahorro">Ahorro</option>
-            <option value="comida">Comida</option>
-            <option value="casa">Casa</option>
-            <option value="gastos">Gastos Varios</option>
-            <option value="ocio">Tiempo Libre</option>
-            <option value="salud">Salud</option>
-            <option value="subcripciones">Subcripciones</option>           
-          </select>
-        </div> */}
         <input
           type="submit"
           value={gastoEditar.nombre ? "Actualizar Gasto" : "Añadir Gasto"}

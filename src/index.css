@@ -412,6 +412,19 @@ body .modal {
   text-align: right;
 }
 
+.checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 /* Reglas para pantallas grandes */
 @media (min-width: 768px) {
   .formulario {

@@ -8,7 +8,9 @@ const NuevoPresupuesto = ({
 }) => {
   const [mensaje, setMensaje] = useState("");
 
-  const handelPresupuesto = (e) => {
+
+
+  const handlePresupuesto = (e) => {
     e.preventDefault();
     if (!presupuesto || presupuesto < 0) {
       setMensaje("Presupuesto Inválido!!!");
@@ -18,18 +20,37 @@ const NuevoPresupuesto = ({
     setIsValidPresupuesto(true);
   };
 
+  const handleCheckboxChange = (valor) => {
+    if (presupuesto === valor) {
+      setPresupuesto(0); // deselecciona si vuelve a hacer clic
+    } else {
+      setPresupuesto(valor);
+    }
+  };
+
   return (
     <div className="contenedor-presupuesto contenedor sombra">
-      <form onSubmit={handelPresupuesto} className="formulario">
+      <form onSubmit={handlePresupuesto} className="formulario">
         <div className="campo">
-          <label> Definir Presupúesto</label>
-          <input
-            type="number"
-            className="nuevo-presupuesto"
-            placeholder="Añade tu Presupuesto"
-            value={presupuesto}
-            onChange={(e) => setPresupuesto(Number(e.target.value))}
-          />
+          <label>Definir Presupuesto</label>
+          <div className="checkbox-group">
+            {[...Array(9)].map((_, index) => {
+              const valor = 20000 + index * 10000;
+              return (
+                <label key={valor} className="checkbox-item">
+                  <input
+                    type="checkbox"
+                    checked={presupuesto === valor}
+                    onChange={() => handleCheckboxChange(valor)}
+                  />
+                  {valor.toLocaleString("es-AR", {
+                    style: "currency",
+                    currency: "ARS",
+                  })}
+                </label>
+              );
+            })}
+          </div>
         </div>
         <input type="submit" value="Añadir" />
         {mensaje && <Mensaje tipo="error">{mensaje}</Mensaje>}
