@@ -1,4 +1,4 @@
-//cspell: ignore  categoria, subcripciones, categorias
+//cspell: ignore  categoria, subcripciones, categorias, soloNumeros, valorNumerico, esEdicion
 import { useEffect, useState } from "react";
 import cerrarBTN from "../img/cerrar.svg";
 import Mensaje from "./Mensaje";
@@ -18,6 +18,9 @@ const Modal = ({
   const [unidades, setUnidades] = useState(1);
   const [id, setId] = useState("");
   const [fecha, setFecha] = useState("");
+
+  // const [cantidad, setCantidad] = useState(0);
+  const [cantidadTexto, setCantidadTexto] = useState("");
 
   const categorias_nombre = [
     { value: "ahorro" },
@@ -50,6 +53,36 @@ const Modal = ({
 
   const subTotal = cantidad * unidades;
 
+  /* ************************************ */
+
+  const handleCantidadChange = (e) => {
+    const valorTexto = e.target.value;
+
+    const valorNumerico = Number(valorTexto.replace(/\D/g, ""));
+
+    // Actualizamos ambos estados
+    setCantidad(valorNumerico);
+    setCantidadTexto(
+      valorNumerico.toLocaleString("es-AR", {
+        style: "currency",
+        currency: "ARS",
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      })
+    );
+  };
+
+  const formatearNumero = (valor) => {
+    if (!valor) return "";
+    return valor.toLocaleString("es-AR", {
+      style: "currency",
+      currency: "ARS",
+      minimumFractionDigits: 0
+    });
+  };
+
+  /* ************************************ */
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if ([nombre, cantidad].includes("")) {
@@ -61,7 +94,21 @@ const Modal = ({
     }
     const categoriaRandom =
       categorias_nombre[Math.floor(Math.random() * categorias_nombre.length)];
+
+    const esEdicion = !!gastoEditar.nombre;
+    const fechaActual = esEdicion ? fecha : new Date().toISOString();
+
     guardarGasto({
+      nombre,
+      cantidad,
+      categoria: categoriaRandom.value,
+      unidades,
+      id,
+      fecha: fechaActual,
+      subTotal,
+    });
+
+    console.log("🧾 Gasto guardado:", {
       nombre,
       cantidad,
       categoria: categoriaRandom.value,
@@ -70,7 +117,6 @@ const Modal = ({
       fecha,
       subTotal,
     });
-    
   };
   return (
     <div className="modal">
@@ -97,11 +143,11 @@ const Modal = ({
         <div className="campo">
           <label htmlFor="cantidad">Precio Unitario</label>
           <input
-            type="number"
+            type="text"
             id="cantidad"
-            placeholder="Añade la cantidad del Gasto, ej: $300"
-            value={cantidad}
-            onChange={(e) => setCantidad(Number(e.target.value))}
+            placeholder="Ej: 3000"
+            value={formatearNumero(cantidad)}
+            onChange={handleCantidadChange}
           />
         </div>
         <div className="campo">
@@ -116,7 +162,7 @@ const Modal = ({
         </div>
         <div className="campo">
           <label htmlFor="subTotal">Sub Total</label>
-          <h3 className="subTotal">$ {subTotal}</h3>
+          <h3 className="subTotal">{formatearNumero(subTotal)}</h3>
         </div>
 
         <input

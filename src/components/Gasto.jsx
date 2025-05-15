@@ -31,6 +31,27 @@ const diccIconos = {
 const Gasto = ({ gasto, setGastoEditar, eliminarGasto }) => {
   const { categoria, nombre, cantidad, id, unidades, subTotal, fecha } = gasto;
 
+
+
+  const formatearNumero = (valor) => {
+    if (!valor) return "";
+    return valor.toLocaleString("es-AR", {
+      style: "currency",
+      currency: "ARS",
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+  };
+
+  const formatearHora = (isoDate) => {
+    if (!isoDate) return "";
+    const hora = new Date(isoDate).toLocaleTimeString("es-AR", {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+    return hora;
+  };
+
   const leadingActions = () => (
     <LeadingActions>
       <SwipeAction onClick={() => setGastoEditar(gasto)}>Editar</SwipeAction>
@@ -60,12 +81,14 @@ const Gasto = ({ gasto, setGastoEditar, eliminarGasto }) => {
                 {nombre.charAt(0).toUpperCase() + nombre.slice(1).toLowerCase()}
               </p>
               <p className="fecha-gasto">
-                {" "}
                 Agregado el: <span>{formatearFecha(fecha)}</span>
+              </p>
+              <p className="fecha-gasto">
+                <span>A las: {formatearHora(fecha)}</span>
               </p>
             </div>
           </div>
-          <p className="cantidad-gasto">${subTotal}</p>
+          <p className="cantidad-gasto">{formatearNumero(subTotal)}</p>
         </div>
       </SwipeableListItem>
     </SwipeableList>

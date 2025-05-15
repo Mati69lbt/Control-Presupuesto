@@ -33,20 +33,22 @@ const NuevoPresupuesto = ({
       <form onSubmit={handlePresupuesto} className="formulario">
         <div className="campo">
           <label>Definir Presupuesto</label>
-          <div className="checkbox-group">
+          <div className="checkbox-grid">
             {[...Array(9)].map((_, index) => {
               const valor = 20000 + index * 10000;
               return (
-                <label key={valor} className="checkbox-item">
+                <label key={valor} className="checkbox-item pretty">
                   <input
                     type="checkbox"
                     checked={presupuesto === valor}
                     onChange={() => handleCheckboxChange(valor)}
                   />
-                  {valor.toLocaleString("es-AR", {
-                    style: "currency",
-                    currency: "ARS",
-                  })}
+                  <span>
+                    {valor.toLocaleString("es-AR", {
+                      style: "currency",
+                      currency: "ARS",
+                    })}
+                  </span>
                 </label>
               );
             })}
