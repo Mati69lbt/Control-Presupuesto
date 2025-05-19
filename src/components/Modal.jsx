@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import cerrarBTN from "../img/cerrar.svg";
 import Mensaje from "./Mensaje";
+import { InputMoneda } from "./Comparacion/InputMoneda ";
 
 const Modal = ({
   setModal,
@@ -77,7 +78,7 @@ const Modal = ({
     return valor.toLocaleString("es-AR", {
       style: "currency",
       currency: "ARS",
-      minimumFractionDigits: 0
+      minimumFractionDigits: 0,
     });
   };
 

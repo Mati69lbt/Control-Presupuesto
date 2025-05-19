@@ -1,4 +1,5 @@
 // cspell: ignore Swipeable, Subcripciones, subcripciones, categoria, descripcion, gastosFiltrrados
+import ListadoComparacion from "./Comparacion/ListadoComparacion";
 import Gasto from "./Gasto";
 
 const ListadoGastos = ({
@@ -7,6 +8,7 @@ const ListadoGastos = ({
   eliminarGasto,
   gastosFiltrrados,
   filtros,
+  tablaRef,
 }) => {
   const ordenarGastos = (gastos) => {
     return [...gastos].sort((a, b) =>
@@ -43,6 +45,8 @@ const ListadoGastos = ({
               eliminarGasto={eliminarGasto}
             />
           ))}
+          <hr />
+          <ListadoComparacion gastos={gastos} tablaRef={tablaRef} />
         </>
       )}
     </div>

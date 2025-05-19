@@ -92,13 +92,11 @@ header h1 {
   transform: scale(1.2);
 }
 
-
-
 @media (min-width: 768px) {
   .formulario {
     padding: 5rem 0;
     width: 60rem;
-    margin-top:-5rem;
+    margin-top: -5rem;
   }
 }
 .formulario legend {
@@ -268,6 +266,24 @@ header h1 {
 }
 .reset-app:hover {
   background-color: #c71465;
+  cursor: pointer;
+}
+
+.reset-app-listado {
+  border: none;
+  background-color: rgb(39, 96, 219);
+  padding: 1rem;
+  width: 100%;
+  text-align: center;
+  color: var(--blanco);
+  text-transform: uppercase;
+  font-weight: 900;
+  border-radius: 1rem;
+  transition-property: background-color;
+  transition-duration: 300ms;
+}
+.reset-app-listado:hover {
+  background-color: rgb(83, 127, 223);
   cursor: pointer;
 }
 
@@ -459,12 +475,136 @@ body .modal {
   gap: 0.5rem;
 }
 
+.comparacion-container {
+  max-width: 1000px;
+  margin: auto;
+}
+
+.tabla-comparacion {
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.tabla-comparacion th,
+.tabla-comparacion td {
+  border: 1px solid #ccc;
+  padding: 6px;
+  text-align: right;
+  font-family: "Helvetica Neue", sans-serif;
+}
+
+.col-producto {
+  width: 15%;
+  text-align: left;
+}
+
+.col-precio-app,
+.col-subtotal {
+  width: 10%;
+}
+.col-precio-ticket,
+.col-descuento {
+  width: 15%;
+}
+.col-diferencia {
+  width: 10%;
+}
+
+.tabla-comparacion th {
+  background-color: var(--azul);
+  color: var(--blanco);
+  font-weight: bold;
+}
+
+input[type="text"] {
+  width: 80%;
+  padding: 4px 8px;
+  text-align: right;
+  font-family: "Inter", sans-serif;
+  font-size: 15px;
+}
+
+.negativo {
+  color: red;
+}
+
+.positivo {
+  color: black;
+}
+
+.total-label {
+  text-align: right;
+  font-weight: bold;
+}
+
+.total-valor {
+  font-weight: bold;
+}
+
+.tabla-totales {
+  margin-top: 20px;
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: "Inter", sans-serif;
+  background-color: #fdfdfd;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+}
+
+.tabla-totales th,
+.tabla-totales td {
+  border: 1px solid #ddd;
+  padding: 8px 12px;
+  text-align: right;
+  font-size: 15px;
+}
+
+.tabla-totales .label {
+  text-align: left;
+  font-weight: bold;
+  background-color: #f8f8f8;
+}
+
+.tabla-totales .th-titulo {
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #efefef;
+}
+
+.tabla-totales .valor {
+  font-weight: normal;
+}
+
+.tabla-totales .positivo {
+  color: black;
+}
+
+.tabla-totales .negativo {
+  color: red;
+}
+
+.valor input[type="text"] {
+  width: 240px;
+  padding: 4px 8px;
+  text-align: right;
+  font-family: "Inter", sans-serif;
+  font-size: 15px;
+}
+
+.index {
+  width: 3%;
+}
+
 /* Reglas para pantallas grandes */
 @media (min-width: 768px) {
   .formulario {
     padding: 5rem 0;
     width: 60rem;
-    margin-top:-5rem;
+    margin-top: -5rem;
   }
   .formulario input[type="submit"] {
     display: block;
@@ -489,7 +629,7 @@ body .modal {
     width: 95%;
     margin: 0 auto;
     padding: 10rem 0;
-    margin-top:-10rem;
+    margin-top: -10rem;
   }
   .formulario input[type="submit"] {
     width: 100%;
@@ -512,5 +652,38 @@ body .modal {
   }
   .contenido-presupuesto p {
     font-size: 1.4rem;
+  }
+  .comparacion-container {
+    display: none;
+  }
+  .gasto {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+  }
+
+  .contenido-gasto {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .contenido-gasto img {
+    width: 40px; 
+    height: 40px;
+  }
+
+  .cantidad-gasto {
+    margin-top: 0rem;
+    font-size: 2.6rem;
+    font-weight: bold;
+    align-self: center;
+    text-align: center;
+  }
+  .fecha-gasto span {
+    font-size: 1.7rem;
+    font-weight: 400;
+    color: var(--gris);
+    margin-top: 0.5rem;
   }
 }

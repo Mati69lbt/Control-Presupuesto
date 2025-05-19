@@ -1,13 +1,16 @@
-// cspell: ignore categoria
-import { useEffect, useState } from "react";
+// cspell: ignore categoria, ListadoComparacion, Comparacion, gastosFiltrrados, setGastosFiltrrados
+import { useEffect, useRef, useState } from "react";
 import Filtros from "./components/Filtros";
 import Header from "./components/Header";
 import ListadoGastos from "./components/ListadoGastos";
 import Modal from "./components/Modal";
 import { generarId } from "./helpers";
 import IconoNuevoGasto from "./img/nuevo-gasto.svg";
+import ListadoComparacion from "./components/Comparacion/ListadoComparacion";
 
 function App() {
+  const refTablaComparacion = useRef(null);
+
   const [gastos, setGastos] = useState(
     JSON.parse(localStorage.getItem("gastos")) || []
   );
@@ -98,6 +101,7 @@ function App() {
         setPresupuesto={setPresupuesto}
         isValidPresupuesto={isValidPresupuesto}
         setIsValidPresupuesto={setIsValidPresupuesto}
+        tablaRef={refTablaComparacion}
       />
       {isValidPresupuesto && (
         <>
@@ -109,6 +113,7 @@ function App() {
               eliminarGasto={eliminarGasto}
               gastosFiltrrados={gastosFiltrrados}
               filtros={filtros}
+              tablaRef={refTablaComparacion}
             />
           </main>
           <div className="nuevo-gasto">
@@ -120,6 +125,8 @@ function App() {
           </div>
         </>
       )}
+      <hr />
+
       {modal && (
         <Modal
           setModal={setModal}
@@ -130,6 +137,10 @@ function App() {
           setGastoEditar={setGastoEditar}
         />
       )}
+      <br />
+      <div className="footer">
+        <p>&copy; {new Date().getFullYear()} - MDelgado (May)</p>
+      </div>
     </div>
   );
 }

@@ -31,8 +31,6 @@ const diccIconos = {
 const Gasto = ({ gasto, setGastoEditar, eliminarGasto }) => {
   const { categoria, nombre, cantidad, id, unidades, subTotal, fecha } = gasto;
 
-
-
   const formatearNumero = (valor) => {
     if (!valor) return "";
     return valor.toLocaleString("es-AR", {
@@ -81,10 +79,9 @@ const Gasto = ({ gasto, setGastoEditar, eliminarGasto }) => {
                 {nombre.charAt(0).toUpperCase() + nombre.slice(1).toLowerCase()}
               </p>
               <p className="fecha-gasto">
-                Agregado el: <span>{formatearFecha(fecha)}</span>
-              </p>
-              <p className="fecha-gasto">
-                <span>A las: {formatearHora(fecha)}</span>
+                <span>
+                  {formatearFecha(fecha)} - {formatearHora(fecha)}
+                </span>
               </p>
             </div>
           </div>

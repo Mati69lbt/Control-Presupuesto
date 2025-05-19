@@ -1,5 +1,5 @@
 // cspell: ignore Resetear
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
@@ -9,14 +9,16 @@ const ControlPresupuesto = ({
   setGastos,
   setPresupuesto,
   setIsValidPresupuesto,
+  tablaRef,
 }) => {
   const [porcentaje, setPorcentaje] = useState(0);
   const [disponible, setDisponible] = useState(0);
   const [gastado, setGastado] = useState(0);
 
+  const miRef = useRef(null);
+
   useEffect(() => {
     const totalGastado = gastos.reduce(
-      // (total, gasto) => gasto.cantidad + total,
       (total, gasto) => gasto.subTotal + total,
       0
     );
@@ -52,6 +54,10 @@ const ControlPresupuesto = ({
     }
   };
 
+  const irATabla = () => {
+    tablaRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <div className="contenedor-presupuesto contenedor sombra dos-columnas">
       <div>
@@ -66,6 +72,11 @@ const ControlPresupuesto = ({
         />
       </div>
       <div className="contenido-presupuesto">
+        <button className="reset-app-listado" type="button" onClick={irATabla}>
+          Listado Comparativa
+        </button>
+
+        <hr />
         <button className="reset-app" type="button" onClick={handleResetApp}>
           Resetear App
         </button>
