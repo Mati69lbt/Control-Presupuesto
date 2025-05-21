@@ -9,6 +9,8 @@ export const InputMoneda = ({
 }) => {
   const [texto, setTexto] = useState(value);
 
+  const [modificado, setModificado] = useState(false);
+
   useEffect(() => {
     if (value === null || value === undefined) {
       setTexto("");
@@ -37,14 +39,21 @@ export const InputMoneda = ({
 
   const handleChange = (e) => {
     const raw = e.target.value;
+    setModificado(true); // 👉 esto marca que hubo edición
+
     const cleaned = raw.replace(/\D/g, "");
     const numero = Number(cleaned);
-    setTexto(raw); // mostramos lo que el usuario escribe
-    onChange(numero); // pasamos el número limpio
+
+    setTexto(raw);
+    if (!isNaN(numero)) {
+      onChange(numero);
+    }
   };
 
   const handleBlur = () => {
-    const numero = Number(texto.replace(/\D/g, "")) || 0;
+    if (!modificado) return;
+
+    const numero = Number(texto.replace(/\D/g, ""));
     const textoFormateado = numero.toLocaleString("es-AR", {
       style: "currency",
       currency: "ARS",
@@ -52,6 +61,7 @@ export const InputMoneda = ({
       maximumFractionDigits: 2,
     });
     setTexto(textoFormateado);
+    setModificado(false); // Reinicio
   };
 
   return (
@@ -62,7 +72,10 @@ export const InputMoneda = ({
       placeholder={placeholder}
       onChange={handleChange}
       onBlur={handleBlur}
-      onFocus={(e) => e.target.select()}
+      onFocus={(e) => {
+        e.target.select();
+        setModificado(false); // Por si viene desde tab sin editar
+      }}
     />
   );
 };

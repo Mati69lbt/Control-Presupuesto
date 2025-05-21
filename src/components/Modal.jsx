@@ -139,6 +139,7 @@ const Modal = ({
             value={nombre}
             onChange={(e) => setNombre(e.target.value)}
             autoComplete="off"
+            style={{ width: "100%" }}
           />
         </div>
         <div className="campo">
@@ -149,6 +150,7 @@ const Modal = ({
             placeholder="Ej: 3000"
             value={formatearNumero(cantidad)}
             onChange={handleCantidadChange}
+            style={{ width: "100%" }}
           />
         </div>
         <div className="campo">

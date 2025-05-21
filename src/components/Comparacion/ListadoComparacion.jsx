@@ -1,5 +1,5 @@
 // cspell: ignore ListadoComparacion, comparacion
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { InputMoneda } from "./InputMoneda ";
 
 const formatearMoneda = (valor) => {
@@ -28,15 +28,39 @@ const ListadoComparacion = ({ gastos, tablaRef }) => {
     }))
   );
 
+  console.log(gastosConInputs);
+  
+
+  useEffect(() => {
+    setGastosConInputs(
+      gastos.map((g) => ({
+        ...g,
+        precioTicket: 0,
+        descuento: 0,
+      }))
+    );
+  }, [gastos]);
+
+  const ordenarGastosConInputs = (gastosConInputs) => {
+    return [...gastosConInputs].sort((a, b) =>
+      a.nombre.localeCompare(b.nombre, "es", { sensitivity: "base" })
+    );
+  };
+
+  const gastosOrdenados = ordenarGastosConInputs(gastosConInputs);
+
   const TotalApp = gastos.reduce((acc, g) => {
     const subTotal = g.cantidad * g.unidades;
     return acc + subTotal;
   }, 0);
 
-  const handleInputChange = (index, campo, valor) => {
+  const handleInputChange = (gastoEditado, campo, valor) => {
     const copia = [...gastosConInputs];
-    copia[index][campo] = valor;
-    setGastosConInputs(copia);
+    const idx = copia.findIndex((g) => g.id === gastoEditado.id);
+    if (idx !== -1) {
+      copia[idx][campo] = valor;
+      setGastosConInputs(copia);
+    }
   };
 
   const calcularSubtotal = (precio, descuento) =>
@@ -81,49 +105,44 @@ const ListadoComparacion = ({ gastos, tablaRef }) => {
           </tr>
         </thead>
         <tbody>
-          {gastosConInputs.map((gasto, index) => {
-            const subtotal = calcularSubtotal(
-              gasto.precioTicket,
-              gasto.descuento
-            );
-            const diferencia = calcularDiferencia(gasto.subTotal, subtotal);
+        {gastosOrdenados.map((gasto, index) => {
+  const subtotal = calcularSubtotal(gasto.precioTicket, gasto.descuento);
+  const diferencia = calcularDiferencia(gasto.subTotal, subtotal);
 
-            return (
-              <tr key={gasto.id}>
-                <td className="index">{index + 1}</td>
-                <td className="col-producto">{gasto.nombre}</td>
-                <td className="col-precio-app">
-                  {formatearMoneda(gasto.subTotal)}
-                </td>
-                <td className="col-precio-ticket">
-                  <InputMoneda
-                    placeholder="Precio Ticket"
-                    value={gasto.precioTicket}
-                    onChange={(valor) =>
-                      handleInputChange(index, "precioTicket", valor)
-                    }
-                  />
-                </td>
-                <td className="col-descuento">
-                  <InputMoneda
-                    value={gasto.descuento}
-                    placeholder="Descuento"
-                    onChange={(valor) =>
-                      handleInputChange(index, "descuento", valor)
-                    }
-                  />
-                </td>
-                <td className="col-subtotal">{formatearMoneda(subtotal)}</td>
-                <td
-                  className={`col-diferencia ${
-                    diferencia < 0 ? "negativo" : "positivo"
-                  }`}
-                >
-                  {formatearMoneda(diferencia)}
-                </td>
-              </tr>
-            );
-          })}
+  return (
+    <tr key={gasto.id}>
+      <td className="index">{index + 1}</td>
+      <td className="col-producto">{gasto.nombre}</td>
+      <td className="col-precio-app">{formatearMoneda(gasto.subTotal)}</td>
+      <td className="col-precio-ticket">
+        <InputMoneda
+          placeholder="Precio Ticket"
+          value={gasto.precioTicket}
+          onChange={(valor) =>
+            handleInputChange(gasto, "precioTicket", valor)
+          }
+        />
+      </td>
+      <td className="col-descuento">
+        <InputMoneda
+          value={gasto.descuento}
+          placeholder="Descuento"
+          onChange={(valor) =>
+            handleInputChange(gasto, "descuento", valor)
+          }
+        />
+      </td>
+      <td className="col-subtotal">{formatearMoneda(subtotal)}</td>
+      <td
+        className={`col-diferencia ${
+          diferencia < 0 ? "negativo" : "positivo"
+        }`}
+      >
+        {formatearMoneda(diferencia)}
+      </td>
+    </tr>
+  );
+})}
           <tr>
             <td></td>
             <td className="col-producto">Totales</td>

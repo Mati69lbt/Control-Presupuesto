@@ -12,7 +12,7 @@ const Header = ({
 }) => {
   return (
     <header>
-      <h1>Planificador de Gastos 14/05/25</h1>;
+      <h1>Planificador de Gastos</h1>;
       {isValidPresupuesto ? (
         <ControlPresupuesto
           presupuesto={presupuesto}
