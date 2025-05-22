@@ -287,6 +287,36 @@ header h1 {
   cursor: pointer;
 }
 
+.reset-app-exportar {
+  background-color: #10b981;
+  color: white;
+  border: none;
+  padding: 8px;
+  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+#importar-json {
+  display: none;
+}
+
+.label-importar-json {
+  display: inline-block;
+  background-color:rgb(110, 225, 234);
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.label-importar-json:hover {
+  background-color: #2563eb;
+}
+
 main {
   padding-top: 10rem;
 }

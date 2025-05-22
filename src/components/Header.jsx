@@ -19,7 +19,7 @@ const Header = ({
           gastos={gastos}
           setGastos={setGastos}
           setPresupuesto={setPresupuesto}
-          setIsValidPresupuesto={setIsValidPresupuesto}
+          setIsValidPresupuesto={setIsValidPresupuesto}         
           tablaRef={tablaRef}
         />
       ) : (
@@ -27,6 +27,7 @@ const Header = ({
           presupuesto={presupuesto}
           setPresupuesto={setPresupuesto}
           setIsValidPresupuesto={setIsValidPresupuesto}
+          setGastos={setGastos}
         />
       )}
     </header>

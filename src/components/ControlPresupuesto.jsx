@@ -58,6 +58,28 @@ const ControlPresupuesto = ({
     tablaRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const exportarJSON = () => {
+    const jsonString = JSON.stringify(gastos, null, 2);
+    const blob = new Blob([jsonString], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+
+    const hoy = new Date();
+    const fecha =
+      hoy.getFullYear() +
+      "-" +
+      String(hoy.getMonth() + 1).padStart(2, "0") +
+      "-" +
+      String(hoy.getDate()).padStart(2, "0");
+
+    const nombreArchivo = `gastos_${fecha}.json`;
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = nombreArchivo;
+    link.click();
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <div className="contenedor-presupuesto contenedor sombra dos-columnas">
       <div>
@@ -73,12 +95,20 @@ const ControlPresupuesto = ({
       </div>
       <div className="contenido-presupuesto">
         <button className="reset-app-listado" type="button" onClick={irATabla}>
-          Listado Comparativa
+          Listado Comparativo
         </button>
 
         <hr />
         <button className="reset-app" type="button" onClick={handleResetApp}>
           Resetear App
+        </button>
+        <hr />
+        <button
+          className="reset-app-exportar"
+          type="button"
+          onClick={exportarJSON}
+        >
+          Exportar JSON
         </button>
         <p>
           <span>Presupuesto: </span>

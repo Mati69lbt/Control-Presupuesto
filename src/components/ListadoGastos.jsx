@@ -45,6 +45,7 @@ const ListadoGastos = ({
               eliminarGasto={eliminarGasto}
             />
           ))}
+          <br />
           <hr />
           <ListadoComparacion gastos={gastos} tablaRef={tablaRef} />
         </>
