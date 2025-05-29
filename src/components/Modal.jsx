@@ -91,16 +91,7 @@ const Modal = ({
       fecha: fechaActual,
       subTotal,
     });
-
-    console.log("🧾 Gasto guardado:", {
-      nombre,
-      cantidad,
-      categoria: categoriaRandom.value,
-      unidades,
-      id,
-      fecha,
-      subTotal,
-    });
+  
   };
   return (
     <div className="modal">
@@ -143,6 +134,7 @@ const Modal = ({
             onValueChange={({ floatValue }) => {
               setCantidad(floatValue ?? 0);
             }}
+            style={{ width: "100%" }}
           />
         </div>
         <div className="campo">
@@ -161,6 +153,7 @@ const Modal = ({
             onValueChange={({ floatValue }) => {
               setUnidades(floatValue ?? 0);
             }}
+            style={{ width: "100%" }}
           />
         </div>
         <div className="campo">

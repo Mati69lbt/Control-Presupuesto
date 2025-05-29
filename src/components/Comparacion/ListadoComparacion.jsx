@@ -11,7 +11,7 @@ const formatearMoneda = (valor) => {
   });
 };
 
-const refMoneda = useRef();
+
 
 const limpiarInput = (valor) => {
   if (typeof valor === "number") return valor;
@@ -29,8 +29,9 @@ const ListadoComparacion = ({ gastos, tablaRef }) => {
       descuento: 0,
     }))
   );
-
-  console.log(gastosConInputs);
+  
+  const refMoneda = useRef();
+  
   
 
   useEffect(() => {
