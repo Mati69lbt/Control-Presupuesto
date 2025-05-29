@@ -11,6 +11,8 @@ const formatearMoneda = (valor) => {
   });
 };
 
+const refMoneda = useRef();
+
 const limpiarInput = (valor) => {
   if (typeof valor === "number") return valor;
   if (typeof valor === "string") {
@@ -118,25 +120,21 @@ const ListadoComparacion = ({ gastos, tablaRef }) => {
         <InputMoneda
           placeholder="Precio Ticket"
           value={gasto.precioTicket}
-          onChange={(valor) =>
-            handleInputChange(gasto, "precioTicket", valor)
-          }
+          onChange={(valor) => handleInputChange(gasto, "precioTicket", valor)}
+          inputRef={refMoneda}
         />
       </td>
       <td className="col-descuento">
         <InputMoneda
           value={gasto.descuento}
           placeholder="Descuento"
-          onChange={(valor) =>
-            handleInputChange(gasto, "descuento", valor)
-          }
+          onChange={(valor) => handleInputChange(gasto, "descuento", valor)}
+          inputRef={refMoneda}
         />
       </td>
       <td className="col-subtotal">{formatearMoneda(subtotal)}</td>
       <td
-        className={`col-diferencia ${
-          diferencia < 0 ? "negativo" : "positivo"
-        }`}
+        className={`col-diferencia ${diferencia < 0 ? "negativo" : "positivo"}`}
       >
         {formatearMoneda(diferencia)}
       </td>

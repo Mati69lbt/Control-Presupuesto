@@ -1,8 +1,8 @@
 //cspell: ignore  categoria, subcripciones, categorias, soloNumeros, valorNumerico, esEdicion
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import { NumericFormat } from "react-number-format";
 import cerrarBTN from "../img/cerrar.svg";
 import Mensaje from "./Mensaje";
-import { InputMoneda } from "./Comparacion/InputMoneda ";
 
 const Modal = ({
   setModal,
@@ -56,30 +56,13 @@ const Modal = ({
 
   /* ************************************ */
 
-  const handleCantidadChange = (e) => {
-    const valorTexto = e.target.value;
+  const inputRef = useRef(null);
+  const cantidadRef = useRef(null);
 
-    const valorNumerico = Number(valorTexto.replace(/\D/g, ""));
-
-    // Actualizamos ambos estados
-    setCantidad(valorNumerico);
-    setCantidadTexto(
-      valorNumerico.toLocaleString("es-AR", {
-        style: "currency",
-        currency: "ARS",
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      })
-    );
-  };
-
-  const formatearNumero = (valor) => {
-    if (!valor) return "";
-    return valor.toLocaleString("es-AR", {
-      style: "currency",
-      currency: "ARS",
-      minimumFractionDigits: 0,
-    });
+  const seleccionarTexto = (ref) => {
+    if (ref.current) {
+      ref.current.select();
+    }
   };
 
   /* ************************************ */
@@ -143,29 +126,51 @@ const Modal = ({
           />
         </div>
         <div className="campo">
-          <label htmlFor="cantidad">Precio Unitario</label>
-          <input
-            type="text"
-            id="cantidad"
-            placeholder="Ej: 3000"
-            value={formatearNumero(cantidad)}
-            onChange={handleCantidadChange}
-            style={{ width: "100%" }}
+          <label htmlFor="precio">Precio del Producto</label>
+          <NumericFormat
+            placeholder="Ej: $3.309"
+            id="precio"
+            value={cantidad}
+            thousandSeparator="."
+            decimalSeparator=","
+            prefix="$ "
+            allowNegative={false}
+            decimalScale={2}
+            fixedDecimalScale
+            inputMode="decimal"
+            getInputRef={inputRef}
+            onClick={() => seleccionarTexto(inputRef)}
+            onValueChange={({ floatValue }) => {
+              setCantidad(floatValue ?? 0);
+            }}
           />
         </div>
         <div className="campo">
           <label htmlFor="unidades">Cantidad</label>
-          <input
-            type="number"
+          <NumericFormat
+            placeholder="¿Cuántos vas a comprar?"
             id="unidades"
-            placeholder="¿Cuantos vas a comprar?"
             value={unidades}
-            onChange={(e) => setUnidades(Number(e.target.value))}
+            thousandSeparator="."
+            decimalSeparator=","
+            allowNegative={false}
+            decimalScale={0}
+            inputMode="numeric"
+            getInputRef={cantidadRef}
+            onClick={() => seleccionarTexto(cantidadRef)}
+            onValueChange={({ floatValue }) => {
+              setUnidades(floatValue ?? 0);
+            }}
           />
         </div>
         <div className="campo">
           <label htmlFor="subTotal">Sub Total</label>
-          <h3 className="subTotal">{formatearNumero(subTotal)}</h3>
+          <h3 className="subTotal">
+            {(cantidad * unidades || 0).toLocaleString("es-AR", {
+              style: "currency",
+              currency: "ARS",
+            })}
+          </h3>
         </div>
 
         <input

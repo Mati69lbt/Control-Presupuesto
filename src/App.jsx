@@ -139,7 +139,7 @@ function App() {
       )}
       <br />
       <div className="footer">
-        <p>&copy; {new Date().getFullYear()} - MDelgado (May) - V3</p>
+        <p>&copy; {new Date().getFullYear()} - MDelgado (May) - V4</p>
       </div>
     </div>
   );
